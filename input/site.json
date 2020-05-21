@@ -4,7 +4,52 @@
     {
       "name": "Refined Storage",
       "slug": "refined-storage",
-      "releaseGroups": [],
+      "releaseGroups": [
+        {
+          "name": "Minecraft 1.9",
+          "source": "refined-storage/releases/minecraft-1.9.json"
+        },
+        {
+          "name": "Minecraft 1.9.4",
+          "source": "refined-storage/releases/minecraft-1.9.4.json"
+        },
+        {
+          "name": "Minecraft 1.10.2",
+          "source": "refined-storage/releases/minecraft-1.10.2.json"
+        },
+        {
+          "name": "Minecraft 1.11",
+          "source": "refined-storage/releases/minecraft-1.11.json"
+        },
+        {
+          "name": "Minecraft 1.11.2",
+          "source": "refined-storage/releases/minecraft-1.11.2.json"
+        },
+        {
+          "name": "Minecraft 1.12",
+          "source": "refined-storage/releases/minecraft-1.12.json"
+        },
+        {
+          "name": "Minecraft 1.12.1",
+          "source": "refined-storage/releases/minecraft-1.12.1.json"
+        },
+        {
+          "name": "Minecraft 1.12.2",
+          "source": "refined-storage/releases/minecraft-1.12.2.json"
+        },
+        {
+          "name": "Minecraft 1.14.4",
+          "source": "refined-storage/releases/minecraft-1.14.4.json"
+        },
+        {
+          "name": "Minecraft 1.15.1",
+          "source": "refined-storage/releases/minecraft-1.15.1.json"
+        },
+        {
+          "name": "Minecraft 1.15.2",
+          "source": "refined-storage/releases/minecraft-1.15.2.json"
+        }
+      ],
       "templates": {
         "index": "refined-storage/index.gohtml"
       }

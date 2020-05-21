@@ -1,0 +1,19 @@
+{
+  "name": "Refined Mods",
+  "projects": [
+    {
+      "name": "Refined Storage",
+      "slug": "refined-storage",
+      "releaseGroups": [],
+      "templates": {
+        "index": "refined-storage/index.gohtml"
+      }
+    }
+  ],
+  "templates": {
+    "layout": "layout.gohtml"
+  },
+  "copyDirectories": [
+    "dist"
+  ]
+}

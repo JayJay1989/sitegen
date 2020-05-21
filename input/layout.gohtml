@@ -1,0 +1,21 @@
+{{- /*gotype: github.com/refinedmods/sitegen/render.RenderData*/ -}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refined Mods - {{.Title}}</title>
+</head>
+<body>
+
+<nav>
+    <i>Refined Mods</i>
+
+    <ul>
+        {{range $project := .Site.Projects}}
+            <li><a href="/{{$project.Slug}}">{{$project.Name}}</a></li>
+        {{end}}
+    </ul>
+</nav>
+
+{{template "body" .}}
+</body>
+</html>

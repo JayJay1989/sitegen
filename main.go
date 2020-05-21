@@ -2,13 +2,11 @@ package main
 
 import (
 	"flag"
+	"github.com/fsnotify/fsnotify"
 	"github.com/refinedmods/sitegen/render"
 	"github.com/refinedmods/sitegen/site"
 	log "github.com/sirupsen/logrus"
 	"os"
-	"time"
-
-	"github.com/fsnotify/fsnotify"
 )
 
 func init() {
@@ -35,8 +33,6 @@ func main() {
 			log.WithError(err).Fatal("Could not build")
 		}
 	case "watch":
-		lastBuild := time.Now()
-
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
 			log.WithError(err).Fatal("Could not create watcher")
@@ -52,12 +48,9 @@ func main() {
 						return
 					}
 					if event.Op&fsnotify.Write == fsnotify.Write {
-						diff := time.Now().Sub(lastBuild)
-						if diff.Seconds() > 1 {
-							log.Info("Noticed change, rebuilding")
-							err = build(site)
-
-							lastBuild = time.Now()
+						err = build(site)
+						if err != nil {
+							log.WithError(err).Error("Build error")
 						}
 					}
 				case err, ok := <-watcher.Errors:

@@ -1,21 +1,42 @@
 {{- /*gotype: github.com/refinedmods/sitegen/render.RenderData*/ -}}
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/dist/{{.Project.Slug}}.css">
+
     <title>Refined Mods - {{.Title}}</title>
 </head>
 <body>
 
-<nav>
-    <i>Refined Mods is cool</i>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+    <a class="navbar-brand" href="#">Refined Mods</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <ul>
-        {{range $project := .Site.Projects}}
-            <li><a href="/{{$project.Slug}}">{{$project.Name}}</a></li>
-        {{end}}
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            {{range .Site.Projects}}
+            <li class="nav-item ">
+                <a class="nav-link {{if eq . $.Project}}active{{ end }}" href="#">{{.Name}}</a>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+    </div>
 </nav>
 
-{{template "body" .}}
+<main role="main">
+    {{template "body" .}}
+</main>
+
+<footer class="container">
+    <p>&copy; Refined Mods 2020</p>
+</footer>
+
 </body>
 </html>

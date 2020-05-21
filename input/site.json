@@ -8,6 +8,14 @@
       "templates": {
         "index": "refined-storage/index.gohtml"
       }
+    },
+    {
+      "name": "Refined Pipes",
+      "slug": "refined-pipes",
+      "releaseGroups": [],
+      "templates": {
+        "index": "refined-storage/index.gohtml"
+      }
     }
   ],
   "templates": {

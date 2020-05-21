@@ -33,6 +33,11 @@ func main() {
 			log.WithError(err).Fatal("Could not build")
 		}
 	case "watch":
+		err = build(site)
+		if err != nil {
+			log.WithError(err).Error("Build error")
+		}
+
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
 			log.WithError(err).Fatal("Could not create watcher")

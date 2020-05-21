@@ -612,18 +612,6 @@
     }
   },
   {
-    "version": "1.2.15-unfixed #815",
-    "changelog": "Autocrafting bugfixes (way2muchnoise)\r\nFixed Grid Filter hiding everything when 2 or more items are in it (raoulvdberge)",
-    "type": "release",
-    "date": "2017-01-03 21:15:53",
-    "links": {
-      "curseforge": "https:\/\/www.curseforge.com\/minecraft\/mc-mods\/refined-storage\/files\/2363904"
-    },
-    "downloads": {
-      "curseforge": "https:\/\/www.curseforge.com\/minecraft\/mc-mods\/refined-storage\/download\/2363904"
-    }
-  },
-  {
     "version": "1.2.15",
     "changelog": "Autocrafting bugfixes (way2muchnoise)\r\nFixed Grid Filter hiding everything when 2 or more items are in it (raoulvdberge)\r\nFixed External Storage crash when breaking a connected inventory (raoulvdberge)",
     "type": "release",

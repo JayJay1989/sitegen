@@ -22,4 +22,38 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Get started</a>
         </div>
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Latest releases
+                    </div>
+                    <div class="card-body p-0 m-0">
+                        <div class="list-group list-group-flush">
+                            {{range .Project.ReleaseGroupsReversed}}
+                                {{if .Featured}}
+                                    <a class="list-group-item list-group-item-action">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>{{.Name}}</strong>
+
+                                            <div class="mt-sm">
+                                                <span class="fa fa-download mt-sm"></span>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0"><span class="badge badge-info">{{.LatestRelease.Type}}</span>
+                                            Refined Storage {{.LatestRelease.Version}}</p>
+                                    </a>
+                                {{end}}
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {{end}}

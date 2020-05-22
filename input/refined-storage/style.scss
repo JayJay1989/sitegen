@@ -1,6 +1,18 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
-body {
-  padding-top: 3.5rem;
+.creeperhost-logo {
+    background: url(/assets/creeperhost-logo.png);
+    width: 128px;
+    height: 32px;
+}
+
+.creeperhost-logo a {
+    display: block;
+    width: 128px;
+    height: 32px;
+}
+
+.main-nav {
+    font-size: 0.8rem;
 }

@@ -78,6 +78,7 @@
     "layout": "layout.gohtml"
   },
   "copyDirectories": [
-    "dist"
+    "dist",
+    "assets"
   ]
 }

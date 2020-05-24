@@ -75,7 +75,8 @@
     }
   ],
   "templates": {
-    "layout": "layout.gohtml"
+    "layout": "layout.gohtml",
+    "releaseBadge":  "release-badge.gohtml"
   },
   "copyDirectories": [
     "dist",

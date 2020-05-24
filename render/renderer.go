@@ -19,14 +19,15 @@ type renderFile struct {
 }
 
 type Renderer struct {
-	files          []*renderFile
-	layoutFile     string
-	site           *site.Site
-	outputLocation string
+	files            []*renderFile
+	layoutFile       string
+	releaseBadgeFile string
+	site             *site.Site
+	outputLocation   string
 }
 
-func NewRenderer(outputLocation string, layoutFile string, site *site.Site) *Renderer {
-	return &Renderer{outputLocation: outputLocation, site: site, layoutFile: layoutFile}
+func NewRenderer(outputLocation string, layoutFile string, releaseBadgeFile string, site *site.Site) *Renderer {
+	return &Renderer{outputLocation: outputLocation, site: site, layoutFile: layoutFile, releaseBadgeFile: releaseBadgeFile}
 }
 
 func (r *Renderer) AddFile(inputFile string, outputFile string, input RenderData) {
@@ -39,7 +40,7 @@ func (r *Renderer) AddFile(inputFile string, outputFile string, input RenderData
 
 func (r *Renderer) RenderAll() error {
 	for _, f := range r.files {
-		tpl, err := template.ParseFiles(r.layoutFile, f.inputFile)
+		tpl, err := template.ParseFiles(r.layoutFile, f.inputFile, r.releaseBadgeFile)
 		if err != nil {
 			return err
 		}

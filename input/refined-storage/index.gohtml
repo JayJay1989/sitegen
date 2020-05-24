@@ -45,7 +45,7 @@
                                                 <span class="fa fa-download mt-sm"></span>
                                             </div>
                                         </div>
-                                        <p class="mb-0"><span class="badge badge-info">{{.LatestRelease.Type}}</span>
+                                        <p class="mb-0">{{ template "release-badge.gohtml" .LatestRelease  }}
                                             Refined Storage {{.LatestRelease.Version}}</p>
                                     </a>
                                 {{end}}

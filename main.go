@@ -76,7 +76,7 @@ func main() {
 }
 
 func build(site *site.Site) error {
-	renderer := render.NewRenderer(*output, site.Templates["layout"], site)
+	renderer := render.NewRenderer(*output, site.Templates["layout"], site.Templates["releaseBadge"], site)
 
 	for _, proj := range site.Projects {
 		renderer.AddProjectIndex(proj.Templates["index"], proj, site)

@@ -18,7 +18,8 @@
         <ul class="navbar-nav">
             {{range $i, $project := .Site.Projects}}
                 <li class="nav-item">
-                    <a class="{{if eq $i 0}}pl-0{{end}} nav-link {{if eq $project $.Project}}active{{ end }}" href="/{{$project.Slug}}">{{$project.Name}}</a>
+                    <a class="{{if eq $i 0}}pl-0{{end}} nav-link {{if eq $project $.Project}}active{{ end }}"
+                       href="/{{$project.Slug}}">{{$project.Name}}</a>
                 </li>
             {{end}}
         </ul>
@@ -80,24 +81,22 @@
     </div>
 </nav>
 
-<main role="main">
+<main role="main" class="pb-4">
     {{template "body" .}}
 </main>
 
-<div class="bg-light">
-    <footer class="container d-flex justify-content-between mt-4 pt-4 pb-4">
-        <p>&copy; Refined Mods 2020</p>
-        <div>
-            <p>Sponsored by <a href="https://www.creeperhost.net/partner/refinedstorage945">CreeperHost</a></p>
+<footer class="bg-light container d-flex justify-content-between pt-4 pb-4">
+    <p>&copy; Refined Mods 2020</p>
+    <div>
+        <p>Sponsored by <a href="https://www.creeperhost.net/partner/refinedstorage945">CreeperHost</a></p>
 
-            <div class="creeperhost-logo ml-auto">
-                <a href="https://www.creeperhost.net/partner/refinedstorage945">
-                    &nbsp;
-                </a>
-            </div>
+        <div class="creeperhost-logo ml-auto">
+            <a href="https://www.creeperhost.net/partner/refinedstorage945">
+                &nbsp;
+            </a>
         </div>
-    </footer>
-</div>
+    </div>
+</footer>
 
 </body>
 </html>

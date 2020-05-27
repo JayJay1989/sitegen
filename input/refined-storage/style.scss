@@ -1,18 +1,34 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
+.logo {
+    width: 122px;
+    height: 40px;
+    background: url(/assets/refined-storage-logo.png);
+
+    a {
+        width: 122px;
+        height: 40px;
+        display: block;
+    }
+}
+
 .creeperhost-logo {
     background: url(/assets/creeperhost-logo.png);
     width: 128px;
     height: 32px;
-}
 
-.creeperhost-logo a {
-    display: block;
-    width: 128px;
-    height: 32px;
+    a {
+        display: block;
+        width: 128px;
+        height: 32px;
+    }
 }
 
 .main-nav {
     font-size: 0.8rem;
+}
+
+main {
+    background: #fff;
 }

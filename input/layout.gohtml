@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="/dist/{{.Project.Slug}}.css">
 
@@ -15,9 +16,9 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark main-nav">
     <div class="container">
         <ul class="navbar-nav">
-            {{range .Site.Projects}}
+            {{range $i, $project := .Site.Projects}}
                 <li class="nav-item">
-                    <a class="nav-link {{if eq . $.Project}}active{{ end }}" href="/{{.Slug}}">{{.Name}}</a>
+                    <a class="{{if eq $i 0}}pl-0{{end}} nav-link {{if eq $project $.Project}}active{{ end }}" href="/{{$project.Slug}}">{{$project.Name}}</a>
                 </li>
             {{end}}
         </ul>
@@ -50,9 +51,14 @@
     </div>
 </nav>
 
-<nav class="navbar navbar-expand-md navbar-light bg-primary">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/">{{.Project.Name}}</a>
+        <div class="logo mr-3 mt-2 mb-2">
+            <a class="navbar-brand" href="/{{.Project.Slug}}">
+                &nbsp;
+            </a>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

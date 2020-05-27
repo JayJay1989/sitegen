@@ -19,6 +19,7 @@ type renderFile struct {
 
 type Renderer struct {
 	files            []*renderFile
+	rawFiles         map[string]string
 	layoutFile       string
 	releaseBadgeFile string
 	site             *site.Site
@@ -26,7 +27,7 @@ type Renderer struct {
 }
 
 func NewRenderer(outputLocation string, layoutFile string, releaseBadgeFile string, site *site.Site) *Renderer {
-	return &Renderer{outputLocation: outputLocation, site: site, layoutFile: layoutFile, releaseBadgeFile: releaseBadgeFile}
+	return &Renderer{outputLocation: outputLocation, site: site, layoutFile: layoutFile, releaseBadgeFile: releaseBadgeFile, rawFiles: make(map[string]string)}
 }
 
 func (r *Renderer) AddFile(inputFile string, outputFile string, input RenderData) {
@@ -37,8 +38,12 @@ func (r *Renderer) AddFile(inputFile string, outputFile string, input RenderData
 	})
 }
 
+func (r *Renderer) AddRawFile(outputFile, data string) {
+	r.rawFiles[outputFile] = data
+}
+
 func (r *Renderer) RenderAll() error {
-	log.WithField("amount", len(r.files)).Info("Rendering files")
+	log.WithField("amount", len(r.files)+len(r.rawFiles)).Info("Rendering files")
 
 	for _, f := range r.files {
 		log.WithField("inputFile", f.inputFile).WithField("outputFile", f.outputFile).Debug("Rendering file")
@@ -79,6 +84,30 @@ func (r *Renderer) RenderAll() error {
 
 		w := bufio.NewWriter(file)
 		err = tpl.Execute(w, f.input)
+		if err != nil {
+			return err
+		}
+
+		err = w.Flush()
+		if err != nil {
+			return err
+		}
+	}
+
+	for filename, value := range r.rawFiles {
+		err := ensureDir(r.outputLocation + filename)
+		if err != nil {
+			return err
+		}
+		file, err := os.OpenFile(r.outputLocation+filename, os.O_TRUNC|os.O_CREATE, 0666)
+		if err != nil {
+			return err
+		}
+
+		defer file.Close()
+
+		w := bufio.NewWriter(file)
+		_, err = w.WriteString(value)
 		if err != nil {
 			return err
 		}

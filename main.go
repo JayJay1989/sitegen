@@ -88,6 +88,11 @@ func build(site *site.Site) error {
 		}
 
 		renderer.AddReleases(site.Templates["releases"], proj, site)
+
+		err := renderer.AddUpdate(site, proj)
+		if err != nil {
+			log.WithError(err).Fatal("Could not render update")
+		}
 	}
 
 	log.Info("Rendering all files")

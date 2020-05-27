@@ -11,6 +11,7 @@ type Site struct {
 	Name            string             `json:"name"`
 	Templates       map[string]string  `json:"templates"`
 	CopyDirectories []string           `json:"copyDirectories"`
+	Url             string             `json:"url"`
 }
 
 func NewSite(filename string) (*Site, error) {

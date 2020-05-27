@@ -1,5 +1,6 @@
 {
   "name": "Refined Mods",
+  "url": "https://refinedmods.com",
   "projects": [
     {
       "name": "Refined Storage",
@@ -74,7 +75,7 @@
   ],
   "templates": {
     "layout": "layout.gohtml",
-    "releaseBadge":  "release-badge.gohtml",
+    "releaseBadge": "release-badge.gohtml",
     "release": "release.gohtml",
     "releases": "releases.gohtml"
   },

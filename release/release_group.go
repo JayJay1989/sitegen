@@ -2,6 +2,7 @@ package release
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/gosimple/slug"
 	"github.com/hashicorp/go-version"
 	log "github.com/sirupsen/logrus"
@@ -16,6 +17,7 @@ type ReleaseGroup struct {
 	Date          *time.Time `json:"date"`
 	Releases      []*Release `json:"-"`
 	LatestRelease *Release   `json:"-"`
+	StableRelease *Release   `json:"-"`
 	Featured      bool       `json:"featured"`
 }
 
@@ -66,7 +68,20 @@ func (g *ReleaseGroup) loadLatest() error {
 
 	g.LatestRelease = g.findByVersion(latest)
 	if g.LatestRelease == nil {
-		log.WithField("group", g.Name).WithField("version", latest).Warn("Could not find version")
+		return errors.New("could not find latest version")
+	}
+
+	g.StableRelease = g.LatestRelease
+	for i := len(versions) - 1; i >= 0; i-- {
+		v := versions[i].Original()[1:]
+		release := g.findByVersion(v)
+		if release == nil {
+			return errors.New("could not find version")
+		}
+		if release.Type == "release" {
+			g.StableRelease = release
+			break
+		}
 	}
 
 	return nil

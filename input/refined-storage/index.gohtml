@@ -27,6 +27,20 @@
 
             </div>
             <div class="col-md-4">
+                {{if .Project.LatestStableRelease}}
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Latest stable release
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{.Project.Name}} {{.Project.LatestStableRelease.Version}}</h5>
+                            <p class="card-text">{{.Project.LatestStableRelease.Group.Name}}</p>
+                            <a href="/{{.Project.Slug}}/releases/{{.Project.LatestStableRelease.Slug}}"
+                               class="btn btn-primary">Download</a>
+                        </div>
+                    </div>
+                {{end}}
+
                 <div class="card">
                     <div class="card-header">
                         Latest releases
@@ -35,7 +49,8 @@
                         <div class="list-group list-group-flush">
                             {{range .Project.ReleaseGroupsReversed}}
                                 {{if .Featured}}
-                                    <a class="list-group-item list-group-item-action" href="/{{$.Project.Slug}}/releases/{{.LatestRelease.Slug}}.html">
+                                    <a class="list-group-item list-group-item-action"
+                                       href="/{{$.Project.Slug}}/releases/{{.LatestRelease.Slug}}.html">
                                         <div class="d-flex justify-content-between">
                                             <strong>{{.Name}}</strong>
 

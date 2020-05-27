@@ -18,7 +18,13 @@ func (r *Renderer) AddUpdate(site *site.Site, project *project.Project) error {
 			mcVersion := strings.ReplaceAll(group.Name, "Minecraft ", "")
 
 			promos[mcVersion+"-latest"] = group.LatestRelease.Version
-			promos[mcVersion+"-recommended"] = group.StableRelease.Version
+
+			stableRelease := group.StableRelease
+			if stableRelease == nil {
+				stableRelease = group.LatestRelease
+			}
+
+			promos[mcVersion+"-recommended"] = stableRelease.Version
 
 			releases := make(map[string]string)
 			for _, release := range group.Releases {

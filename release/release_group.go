@@ -71,7 +71,7 @@ func (g *ReleaseGroup) loadLatest() error {
 		return errors.New("could not find latest version")
 	}
 
-	g.StableRelease = g.LatestRelease
+	g.StableRelease = nil
 	for i := len(versions) - 1; i >= 0; i-- {
 		v := versions[i].Original()[1:]
 		release := g.findByVersion(v)

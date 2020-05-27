@@ -11,6 +11,7 @@ type Project struct {
 	ReleaseGroups         []*release.ReleaseGroup `json:"releaseGroups"`
 	ReleaseGroupsReversed []*release.ReleaseGroup `json:"-"`
 	Templates             map[string]string       `json:"templates"`
+	LatestStableRelease   *release.Release
 }
 
 func (p *Project) Load() error {
@@ -25,6 +26,13 @@ func (p *Project) Load() error {
 
 	for i := len(p.ReleaseGroups) - 1; i >= 0; i-- {
 		p.ReleaseGroupsReversed = append(p.ReleaseGroupsReversed, p.ReleaseGroups[i])
+	}
+
+	for _, group := range p.ReleaseGroupsReversed {
+		if group.StableRelease != nil {
+			p.LatestStableRelease = group.StableRelease
+			break
+		}
 	}
 
 	return nil

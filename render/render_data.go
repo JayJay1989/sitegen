@@ -9,4 +9,5 @@ type RenderData interface {
 	Project() *project.Project
 	Title() string
 	Site() *site.Site
+	NavItem() string
 }

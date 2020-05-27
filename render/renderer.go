@@ -47,6 +47,19 @@ func (r *Renderer) RenderAll() error {
 			"nl2br": func(text string) template.HTML {
 				return template.HTML(strings.Replace(template.HTMLEscapeString(text), "\n", "<br>", -1))
 			},
+			"rangeList": func(startInclusive int, endInclusive int) []int {
+				var result []int
+				for i := startInclusive; i <= endInclusive; i++ {
+					result = append(result, i)
+				}
+				return result
+			},
+			"add": func(i, change int) int {
+				return i + change
+			},
+			"sub": func(i, change int) int {
+				return i - change
+			},
 		}).ParseFiles(r.layoutFile, f.inputFile, r.releaseBadgeFile)
 		if err != nil {
 			return err

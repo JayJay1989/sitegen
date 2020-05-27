@@ -18,18 +18,20 @@ func (r Release) Site() *site.Site {
 	return r.site
 }
 
-type Release struct {
-	project      *project.Project
-	site         *site.Site
-	Release      *release.Release
-	ReleaseGroup *release.ReleaseGroup
+func (p Release) NavItem() string {
+	return "releases"
 }
 
-func (r *Renderer) AddRelease(inputFile string, project *project.Project, site *site.Site, rel *release.Release, group *release.ReleaseGroup) {
-	r.AddFile(inputFile, project.Slug+"/releases/"+rel.Slug+".html", &Release{
-		project:      project,
-		Release:      rel,
-		ReleaseGroup: group,
-		site:         site,
+type Release struct {
+	project *project.Project
+	site    *site.Site
+	Release *release.Release
+}
+
+func (r *Renderer) AddRelease(inputFile string, project *project.Project, site *site.Site, rel *release.Release) {
+	r.AddFile(inputFile, project.Slug+"/releases/"+rel.Slug+"/index.html", &Release{
+		project: project,
+		Release: rel,
+		site:    site,
 	})
 }

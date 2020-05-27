@@ -50,6 +50,8 @@ func (g *ReleaseGroup) loadLatest() error {
 
 	versions := make([]*version.Version, len(g.Releases))
 	for i, release := range g.Releases {
+		release.Group = g
+
 		v, err := version.NewVersion("v" + release.Version)
 		if err != nil {
 			return err

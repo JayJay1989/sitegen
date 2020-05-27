@@ -66,7 +66,6 @@
     },
     {
       "name": "Refined Pipes",
-      "slug": "refined-pipes",
       "releaseGroups": [],
       "templates": {
         "index": "refined-storage/index.gohtml"
@@ -76,7 +75,8 @@
   "templates": {
     "layout": "layout.gohtml",
     "releaseBadge":  "release-badge.gohtml",
-    "release": "release.gohtml"
+    "release": "release.gohtml",
+    "releases": "releases.gohtml"
   },
   "copyDirectories": [
     "dist",

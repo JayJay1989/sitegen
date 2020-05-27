@@ -61,13 +61,13 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/{{.Project.Slug}}">Home</a>
+                    <a class="nav-link {{if eq .NavItem "home"}}active{{end}}" href="/{{.Project.Slug}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/{{.Project.Slug}}/wiki">Wiki</a>
+                    <a class="nav-link {{if eq .NavItem "wiki"}}active{{end}}" href="/{{.Project.Slug}}/wiki">Wiki</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/{{.Project.Slug}}/releases">Releases</a>
+                    <a class="nav-link {{if eq .NavItem "releases"}}active{{end}}" href="/{{.Project.Slug}}/releases">Releases</a>
                 </li>
             </ul>
         </div>

@@ -22,6 +22,10 @@ func (p *ProjectIndex) Title() string {
 	return p.project.Name
 }
 
+func (p *ProjectIndex) NavItem() string {
+	return "home"
+}
+
 func (r *Renderer) AddProjectIndex(inputFile string, project *project.Project, site *site.Site) {
 	r.AddFile(inputFile, project.Slug+"/index.html", &ProjectIndex{
 		project: project,

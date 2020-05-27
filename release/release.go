@@ -10,4 +10,5 @@ type Release struct {
 	Date      *time.Time        `json:"date"`
 	Downloads map[string]string `json:"downloads"`
 	Links     map[string]string `json:"links"`
+	Group     *ReleaseGroup     `json:"-"`
 }

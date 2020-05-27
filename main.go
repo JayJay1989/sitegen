@@ -83,9 +83,11 @@ func build(site *site.Site) error {
 
 		for _, group := range proj.ReleaseGroups {
 			for _, release := range group.Releases {
-				renderer.AddRelease(site.Templates["release"], proj, site, release, group)
+				renderer.AddRelease(site.Templates["release"], proj, site, release)
 			}
 		}
+
+		renderer.AddReleases(site.Templates["releases"], proj, site)
 	}
 
 	log.Info("Rendering all files")

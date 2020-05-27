@@ -37,7 +37,7 @@
                         <div class="list-group list-group-flush">
                             {{range .Project.ReleaseGroupsReversed}}
                                 {{if .Featured}}
-                                    <a class="list-group-item list-group-item-action">
+                                    <a class="list-group-item list-group-item-action" href="/{{$.Project.Slug}}/releases/{{.LatestRelease.Slug}}.html">
                                         <div class="d-flex justify-content-between">
                                             <strong>{{.Name}}</strong>
 

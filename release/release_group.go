@@ -2,6 +2,7 @@ package release
 
 import (
 	"encoding/json"
+	"github.com/gosimple/slug"
 	"github.com/hashicorp/go-version"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
@@ -27,6 +28,10 @@ func (g *ReleaseGroup) Load() error {
 	err = json.Unmarshal(data, &g.Releases)
 	if err != nil {
 		return err
+	}
+
+	for _, release := range g.Releases {
+		release.Slug = slug.Make(release.Version)
 	}
 
 	err = g.loadLatest()

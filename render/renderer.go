@@ -3,19 +3,18 @@ package render
 import (
 	"bufio"
 	"github.com/otiai10/copy"
-	"github.com/refinedmods/sitegen/project"
 	"github.com/refinedmods/sitegen/site"
+	log "github.com/sirupsen/logrus"
 	"html/template"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type renderFile struct {
 	inputFile  string
 	input      RenderData
 	outputFile string
-	project    *project.Project
-	title      string
 }
 
 type Renderer struct {
@@ -39,8 +38,16 @@ func (r *Renderer) AddFile(inputFile string, outputFile string, input RenderData
 }
 
 func (r *Renderer) RenderAll() error {
+	log.WithField("amount", len(r.files)).Info("Rendering files")
+
 	for _, f := range r.files {
-		tpl, err := template.ParseFiles(r.layoutFile, f.inputFile, r.releaseBadgeFile)
+		log.WithField("inputFile", f.inputFile).WithField("outputFile", f.outputFile).Debug("Rendering file")
+
+		tpl, err := template.New(r.layoutFile).Funcs(template.FuncMap{
+			"nl2br": func(text string) template.HTML {
+				return template.HTML(strings.Replace(template.HTMLEscapeString(text), "\n", "<br>", -1))
+			},
+		}).ParseFiles(r.layoutFile, f.inputFile, r.releaseBadgeFile)
 		if err != nil {
 			return err
 		}

@@ -3,7 +3,6 @@
   "projects": [
     {
       "name": "Refined Storage",
-      "slug": "refined-storage",
       "releaseGroups": [
         {
           "name": "Minecraft 1.9",
@@ -76,7 +75,8 @@
   ],
   "templates": {
     "layout": "layout.gohtml",
-    "releaseBadge":  "release-badge.gohtml"
+    "releaseBadge":  "release-badge.gohtml",
+    "release": "release.gohtml"
   },
   "copyDirectories": [
     "dist",

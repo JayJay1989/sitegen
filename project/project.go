@@ -54,6 +54,8 @@ func (p *Project) Load() error {
 			return err
 		}
 
+		wikiIndex := make(map[string]*wiki.Wiki)
+
 		for _, file := range fileList {
 			if strings.HasSuffix(file, ".md") {
 				wikiPage := new(wiki.Wiki)
@@ -82,6 +84,15 @@ func (p *Project) Load() error {
 				wikiPage.Parse()
 
 				p.Wikis = append(p.Wikis, wikiPage)
+
+				wikiIndex[wikiPage.Name] = wikiPage
+			}
+		}
+
+		for _, wikiPage := range p.Wikis {
+			err = wikiPage.ParseReferences(p.Slug, wikiIndex)
+			if err != nil {
+				return err
 			}
 		}
 	}

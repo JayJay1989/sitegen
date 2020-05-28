@@ -36,17 +36,18 @@ The size of any Grid can be configured as well:
 When choosing the stretched size, the Grid will take up all the vertical screen space. This can be limited through the `maxRowsStretch` config option.
 
 ## Controls
-|Type|Description|
-|----|-------|
-|Left click|Takes at most 64 items|
-|Right click|Takes at most 32 items|
-|Middle click|Takes 1 item|
-|SHIFT|Pushes the items to the player's inventory|
-|SHIFT + CTRL|Forces the crafting window to open even if the item is available|
-|CTRL + X|Clears crafting matrix|
-|Right click on search bar|Clears the search query|
-|Tab|Selects the search bar when the Grid isn't in autoselection mode|
-|When in the crafting start GUI, pressing SHIFT|Skips the crafting preview window|
+
+Type                                           | Description
+-----------------------------------------------|-----------------------------------------------------------------
+Left click                                     | Takes at most 64 items
+Right click                                    | Takes at most 32 items
+Middle click                                   | Takes 1 item
+SHIFT                                          | Pushes the items to the player's inventory
+SHIFT + CTRL                                   | Forces the crafting window to open even if the item is available
+CTRL + X                                       | Clears crafting matrix
+Right click on search bar                      | Clears the search query
+Tab                                            | Selects the search bar when the Grid isn't in autoselection mode
+When in the crafting start GUI, pressing SHIFT | Skips the crafting preview window
 
 These controls can be combined. For example, pressing SHIFT and middle click at the same time will push 1 item to the player inventory.
 

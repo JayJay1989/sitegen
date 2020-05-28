@@ -1,6 +1,14 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: ($spacer * .5);
+}
+
 .logo {
     width: 122px;
     height: 40px;
@@ -17,6 +25,11 @@ img.wiki-icon {
     width: 32px;
     height: 32px;
     margin-top: -5px;
+}
+
+img.wiki-tooltip-icon {
+    width: 32px;
+    heigth: 32px;
 }
 
 .creeperhost-logo {

@@ -1,21 +1,20 @@
 {{- /*gotype: github.com/refinedmods/sitegen/render.Release*/ -}}
 {{ define "body" }}
     <div class="container pt-3">
-        <div class="d-flex justify-content-between">
-            <h1 class="h2 mb-3">{{.Release.Version}}</h1>
+        <div class="page-title">
+            <h1 class="h2">{{.Release.Version}}</h1>
 
-            <div>
-                <div class="btn-group" role="group">
-                    {{ range $key, $value := .Release.Downloads}}
-                        <a href="{{$value}}" class="btn btn-outline-primary"><i class="fas fa-download"></i> Download
-                            on {{if eq $key "curseforge"}}CurseForge{{else}}{{$key}}{{end}}
-                        </a>
-                    {{end}}
-                    {{ range $key, $value := .Release.Links}}
-                        <a href="{{$value}}" class="btn btn-outline-primary"><i
-                                    class="fas fa-external-link-alt"></i> View on {{if eq $key "curseforge"}}CurseForge{{else}}{{$key}}{{end}}</a>
-                    {{end}}
-                </div>
+            <div class="btn-group" role="group">
+                {{ range $key, $value := .Release.Downloads}}
+                    <a href="{{$value}}" class="btn btn-outline-primary"><i class="fas fa-download"></i> Download
+                        on {{if eq $key "curseforge"}}CurseForge{{else}}{{$key}}{{end}}
+                    </a>
+                {{end}}
+                {{ range $key, $value := .Release.Links}}
+                    <a href="{{$value}}" class="btn btn-outline-primary"><i
+                                class="fas fa-external-link-alt"></i> View
+                        on {{if eq $key "curseforge"}}CurseForge{{else}}{{$key}}{{end}}</a>
+                {{end}}
             </div>
         </div>
 

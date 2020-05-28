@@ -28,7 +28,6 @@ func (w *Wiki) Parse() {
 	value = strings.ReplaceAll(value, "<h2", `<h2 class="h4"`)
 	value = strings.ReplaceAll(value, "<h3", `<h3 class="h5"`)
 	w.Body = value
-
 }
 
 func (w *Wiki) ParseReferences(projectSlug string, index map[string]*Wiki) error {
@@ -57,10 +56,16 @@ func (w *Wiki) ParseReferences(projectSlug string, index map[string]*Wiki) error
 
 		format := r.ReplaceAllString(string(bytes), `$3`)
 
+		tooltipData := ""
+
+		if referencedWiki.Meta.Icon != "" {
+			tooltipData = fmt.Sprintf(`data-tooltip-icon="%s"`, referencedWiki.Meta.Icon)
+		}
+
 		if format == "" {
-			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html">%s</a>`, projectSlug, referencedWiki.Slug, referencedWiki.Name))
+			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, referencedWiki.Name))
 		} else {
-			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html">%s</a>`, projectSlug, referencedWiki.Slug, format))
+			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, format))
 		}
 	}))
 

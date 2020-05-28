@@ -9,6 +9,7 @@ This is useful when connecting a Crafter to a single machine. When you run out o
 
 ## Crafter modes
 The Crafter has 4 modes:
+
 - Ignore redstone signal (default)
 - Redstone signal unlocks autocrafting
 - Redstone signal locks autocrafting

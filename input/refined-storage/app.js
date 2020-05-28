@@ -7,7 +7,6 @@ import 'bootstrap';
 window.addEventListener('load', () => {
     const tooltips = document.querySelectorAll('[data-tooltip-icon]');
     tooltips.forEach(tooltip => {
-        console.log(tooltip);
         tippy(tooltip, {
             content: '<img src="' + tooltip.getAttribute('data-tooltip-icon') + '" class="wiki-tooltip-icon">',
             theme: 'light',
@@ -16,4 +15,6 @@ window.addEventListener('load', () => {
             placement: "right",
         })
     });
+
+    tippy('[data-tippy-content]');
 });

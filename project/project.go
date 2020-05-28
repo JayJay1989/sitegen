@@ -20,9 +20,11 @@ type Project struct {
 	LatestStableRelease   *release.Release
 	WikiPath              string `json:"wikiPath"`
 	Wikis                 []*wiki.Wiki
+	WikisByGroup          map[string][]*wiki.Wiki
 }
 
 func (p *Project) Load() error {
+	p.WikisByGroup = make(map[string][]*wiki.Wiki)
 	p.Slug = slug.Make(p.Name)
 
 	for _, group := range p.ReleaseGroups {
@@ -86,6 +88,10 @@ func (p *Project) Load() error {
 				p.Wikis = append(p.Wikis, wikiPage)
 
 				wikiIndex[wikiPage.Name] = wikiPage
+
+				if wikiPage.Meta.Group != "" {
+					p.WikisByGroup[wikiPage.Meta.Group] = append(p.WikisByGroup[wikiPage.Meta.Group], wikiPage)
+				}
 			}
 		}
 

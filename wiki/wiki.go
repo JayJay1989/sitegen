@@ -17,7 +17,8 @@ type Wiki struct {
 }
 
 type WikiMetadata struct {
-	Icon string `json:"icon"`
+	Icon  string `json:"icon"`
+	Group string `json:"group"`
 }
 
 func (w *Wiki) Parse() {

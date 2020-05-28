@@ -4,6 +4,7 @@
   "projects": [
     {
       "name": "Refined Storage",
+      "wikiPath": "refined-storage/wiki",
       "releaseGroups": [
         {
           "name": "Minecraft 1.9",
@@ -66,7 +67,24 @@
       }
     },
     {
+      "name": "Refined Storage Addons",
+      "wikiPath": null,
+      "releaseGroups": [],
+      "templates": {
+        "index": "refined-storage/index.gohtml"
+      }
+    },
+    {
       "name": "Refined Pipes",
+      "wikiPath": null,
+      "releaseGroups": [],
+      "templates": {
+        "index": "refined-storage/index.gohtml"
+      }
+    },
+    {
+      "name": "Ranged Pumps",
+      "wikiPath": null,
       "releaseGroups": [],
       "templates": {
         "index": "refined-storage/index.gohtml"
@@ -77,7 +95,8 @@
     "layout": "layout.gohtml",
     "releaseBadge": "release-badge.gohtml",
     "release": "release.gohtml",
-    "releases": "releases.gohtml"
+    "releases": "releases.gohtml",
+    "wiki": "wiki.gohtml"
   },
   "copyDirectories": [
     "dist",

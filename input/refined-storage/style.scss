@@ -4,13 +4,19 @@
 .logo {
     width: 122px;
     height: 40px;
-    background: url(/assets/refined-storage-logo.png);
+    background: url(/assets/refined-storage/logo.png);
 
     a {
         width: 122px;
         height: 40px;
         display: block;
     }
+}
+
+img.wiki-icon {
+    width: 32px;
+    height: 32px;
+    margin-top: -5px;
 }
 
 .creeperhost-logo {

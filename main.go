@@ -89,6 +89,10 @@ func build(site *site.Site) error {
 
 		renderer.AddReleases(site.Templates["releases"], proj, site)
 
+		for _, wiki := range proj.Wikis {
+			renderer.AddWiki(site.Templates["wiki"], wiki, site, proj)
+		}
+
 		err := renderer.AddUpdate(site, proj)
 		if err != nil {
 			log.WithError(err).Fatal("Could not render update")

@@ -1,5 +1,7 @@
 package wiki
 
+import "html/template"
+
 type Wiki struct {
 	Name string
 	Slug string
@@ -8,8 +10,10 @@ type Wiki struct {
 }
 
 type Sidebar struct {
-	File string `json:"file"`
-	Body string
+	File     string `json:"file"`
+	Name     string `json:"name"`
+	Body     string
+	BodyHtml template.HTML
 }
 
 type WikiMetadata struct {

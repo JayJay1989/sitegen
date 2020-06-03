@@ -17,4 +17,22 @@ window.addEventListener('load', () => {
     });
 
     tippy('[data-tippy-content]');
+
+    if (localStorage.getItem('tab') === null) {
+        localStorage.setItem('tab', 'Guides');
+    }
+
+    document.querySelector('#_sidebar_' + localStorage.getItem('tab')).style.display = 'block';
+    document.querySelector('[data-tab="' + localStorage.getItem('tab') + '"]').classList.add('active');
+
+    document.querySelectorAll('[data-toggle="tab"]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const name = tab.getAttribute('data-tab');
+
+            document.querySelectorAll('.sidebar').forEach(item => item.style.display = 'none');
+            document.querySelector('#_sidebar_' + name).style.display = 'block';
+
+            localStorage.setItem('tab', name);
+        });
+    })
 });

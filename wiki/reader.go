@@ -3,13 +3,14 @@ package wiki
 import (
 	"encoding/json"
 	"github.com/gosimple/slug"
+	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
-func LoadWikis(path, projectSlug string) ([]*Wiki, map[string][]*Wiki, error) {
+func LoadWikis(path, projectSlug string, sidebars []*Sidebar) ([]*Wiki, map[string][]*Wiki, error) {
 	var result []*Wiki
 	byGroup := make(map[string][]*Wiki)
 
@@ -59,6 +60,15 @@ func LoadWikis(path, projectSlug string) ([]*Wiki, map[string][]*Wiki, error) {
 		}
 	}
 
+	for _, sidebar := range sidebars {
+		data, err := ioutil.ReadFile(sidebar.File)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		sidebar.Body = parseBody(string(data))
+	}
+
 	for _, page := range result {
 		result, err := parseReferenceLinks(page.Body, page.Name, projectSlug, index)
 		if err != nil {
@@ -66,6 +76,15 @@ func LoadWikis(path, projectSlug string) ([]*Wiki, map[string][]*Wiki, error) {
 		}
 
 		page.Body = result
+	}
+
+	for _, sidebar := range sidebars {
+		result, err := parseReferenceLinks(sidebar.Body, sidebar.Name, projectSlug, index)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		sidebar.BodyHtml = template.HTML(result)
 	}
 
 	return result, byGroup, nil

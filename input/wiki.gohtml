@@ -18,8 +18,29 @@
             </ol>
         </nav>
 
-        <div>
-            {{.Body}}
-        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            {{range .Project.WikiSidebars}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" data-tab="{{.Name}}" href="#">{{.Name}}</a>
+                            </li>
+                            {{end}}
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        {{range .Project.WikiSidebars}}
+                            <div class="sidebar" id="_sidebar_{{.Name}}">
+                                {{.BodyHtml}}
+                            </div>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                {{.Body}}
+            </div>
     </div>
 {{ end }}

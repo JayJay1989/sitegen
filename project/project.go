@@ -13,9 +13,9 @@ type Project struct {
 	ReleaseGroupsReversed []*release.ReleaseGroup `json:"-"`
 	Templates             map[string]string       `json:"templates"`
 	LatestStableRelease   *release.Release
-	WikiPath              string `json:"wikiPath"`
+	WikiPath              string          `json:"wikiPath"`
+	WikiSidebars          []*wiki.Sidebar `json:"wikiSidebars"`
 	Wikis                 []*wiki.Wiki
-	WikiSidebars          []*wiki.Sidebar
 	WikisByGroup          map[string][]*wiki.Wiki
 }
 
@@ -42,7 +42,7 @@ func (p *Project) Load() error {
 	}
 
 	if p.WikiPath != "" {
-		wikis, wikisByGroup, err := wiki.LoadWikis(p.WikiPath, p.Slug)
+		wikis, wikisByGroup, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
 		if err != nil {
 			return err
 		}

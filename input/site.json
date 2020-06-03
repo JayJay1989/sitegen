@@ -5,6 +5,20 @@
     {
       "name": "Refined Storage",
       "wikiPath": "refined-storage/wiki",
+      "wikiSidebars": [
+        {
+          "file": "refined-storage/wiki/sidebar/Guides.md",
+          "name": "Guides"
+        },
+        {
+          "file": "refined-storage/wiki/sidebar/Blocks.md",
+          "name": "Blocks"
+        },
+        {
+          "file": "refined-storage/wiki/sidebar/Items.md",
+          "name": "Items"
+        }
+      ],
       "releaseGroups": [
         {
           "name": "Minecraft 1.9",

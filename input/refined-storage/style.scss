@@ -62,3 +62,10 @@ main {
 .sidebar {
     display: none;
 }
+
+.wiki-heading-link {
+    font-size: 15px;
+    position: relative;
+    top: -1px;
+    visibility: hidden;
+}

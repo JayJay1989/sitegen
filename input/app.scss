@@ -1,4 +1,3 @@
-@import "custom";
 @import "~bootstrap/scss/bootstrap";
 
 .page-title {
@@ -7,18 +6,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: ($spacer * .5);
-}
-
-.logo {
-    width: 122px;
-    height: 40px;
-    background: url(/assets/refined-storage/logo.png);
-
-    a {
-        width: 122px;
-        height: 40px;
-        display: block;
-    }
 }
 
 img.wiki-icon {

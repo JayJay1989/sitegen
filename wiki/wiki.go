@@ -17,6 +17,5 @@ type Sidebar struct {
 }
 
 type WikiMetadata struct {
-	Icon  string `json:"icon"`
-	Group string `json:"group"`
+	Icon string `json:"icon"`
 }

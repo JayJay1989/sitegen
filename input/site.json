@@ -79,30 +79,6 @@
       "templates": {
         "index": "refined-storage/index.gohtml"
       }
-    },
-    {
-      "name": "Refined Storage Addons",
-      "wikiPath": null,
-      "releaseGroups": [],
-      "templates": {
-        "index": "refined-storage/index.gohtml"
-      }
-    },
-    {
-      "name": "Refined Pipes",
-      "wikiPath": null,
-      "releaseGroups": [],
-      "templates": {
-        "index": "refined-storage/index.gohtml"
-      }
-    },
-    {
-      "name": "Ranged Pumps",
-      "wikiPath": null,
-      "releaseGroups": [],
-      "templates": {
-        "index": "refined-storage/index.gohtml"
-      }
     }
   ],
   "templates": {

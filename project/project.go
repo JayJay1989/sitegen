@@ -16,11 +16,11 @@ type Project struct {
 	WikiPath              string          `json:"wikiPath"`
 	WikiSidebars          []*wiki.Sidebar `json:"wikiSidebars"`
 	Wikis                 []*wiki.Wiki
-	WikisByGroup          map[string][]*wiki.Wiki
+	WikisByName           map[string]*wiki.Wiki
 }
 
 func (p *Project) Load() error {
-	p.WikisByGroup = make(map[string][]*wiki.Wiki)
+	p.WikisByName = make(map[string]*wiki.Wiki)
 	p.Slug = slug.Make(p.Name)
 
 	for _, group := range p.ReleaseGroups {
@@ -42,13 +42,16 @@ func (p *Project) Load() error {
 	}
 
 	if p.WikiPath != "" {
-		wikis, wikisByGroup, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
+		wikis, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
 		if err != nil {
 			return err
 		}
 
 		p.Wikis = wikis
-		p.WikisByGroup = wikisByGroup
+
+		for _, w := range p.Wikis {
+			p.WikisByName[w.Name] = w
+		}
 	}
 
 	return nil

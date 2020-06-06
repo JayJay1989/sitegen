@@ -3,6 +3,7 @@ package render
 import (
 	"bufio"
 	"github.com/otiai10/copy"
+	"github.com/refinedmods/sitegen/project"
 	"github.com/refinedmods/sitegen/site"
 	log "github.com/sirupsen/logrus"
 	"html/template"
@@ -64,6 +65,20 @@ func (r *Renderer) RenderAll() error {
 			},
 			"sub": func(i, change int) int {
 				return i - change
+			},
+			"wikiIcon": func(project *project.Project, wikiName string) template.HTML {
+				wiki := project.WikisByName[wikiName]
+				if wiki == nil {
+					panic("not found: " + wikiName)
+				}
+
+				return template.HTML(`<a href="/` + project.Slug + `/wiki/` + wiki.Slug + `.html">
+                                            <img src="` + wiki.Meta.Icon + `"
+                                                 alt="` + wiki.Name + `"
+                                                 class="m-1 home-icon"
+                                                 data-tippy-content="` + wiki.Name + `"
+                                            >
+                                        </a>`)
 			},
 		}).ParseFiles(r.layoutFile, f.inputFile, r.releaseBadgeFile)
 		if err != nil {

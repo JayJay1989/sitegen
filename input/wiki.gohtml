@@ -7,6 +7,10 @@
                     <img src="{{.Wiki.Meta.Icon}}" alt="{{.Wiki.Name}}" class="wiki-icon">
                 {{end}}
                 {{.Wiki.Name}}
+                {{range .Wiki.Meta.Tags}}
+                    <a style="font-size: 15px" href="/{{$.Project.Slug}}/releases/{{ (index $.Project.ReleasesByVersion .Release).Slug }}"
+                       class="badge {{if eq .Type "since"}}badge-primary{{else if eq .Type "removed"}}badge-danger{{end}}">{{if eq .Type "since"}}Since{{else if eq .Type "removed"}}Removed in{{end}}: {{.Release}}</a>
+                {{end}}
             </h1>
         </div>
 

@@ -17,5 +17,11 @@ type Sidebar struct {
 }
 
 type WikiMetadata struct {
-	Icon string `json:"icon"`
+	Icon string     `json:"icon"`
+	Tags []*WikiTag `json:"tags"`
+}
+
+type WikiTag struct {
+	Type    string `json:"type"`
+	Release string `json:"release"`
 }

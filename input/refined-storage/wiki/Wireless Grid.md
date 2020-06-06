@@ -9,6 +9,7 @@ After doing all these steps, the Wireless Grid is still missing a signal from th
 If the Wireless Grid is ready for use, it will light up blue.
 
 Sometimes, the Wireless Grid doesn't open or stays gray. To enable it make sure that:
+
 - The Wireless Grid is bound to a [[Controller]]
 - There is at least 1 [[Wireless Transmitter]] connected to the network
 - That you are in range of the [[Wireless Transmitter]]

@@ -1,5 +1,5 @@
 |Method|Description|
-|--|--|
+|------|-----------|
 |`isConnected():boolean`|Whether the node is connected.|
 |`getEnergyUsage():number`|Gets the energy usage of this network.|
 |`getTasks():table`|Gets the crafting tasks of this network.|

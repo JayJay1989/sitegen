@@ -47,4 +47,4 @@ Alternatively, you can increase the range in the Refined Storage config file to 
 Yes! There are many helpful key and mouse bindings for the [[Grid]]. [[Grid|Read the wiki]]!
 
 ## I found an issue/bug with Refined Storage!
-Head over to our [issue tracker](https://github.com/raoulvdberge/refinedstorage/issues) and report it there.
+Head over to our [issue tracker](https://github.com/refinedmods/refinedstorage/issues) and report it there.

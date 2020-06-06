@@ -3,6 +3,7 @@ The Crafting Monitor is a block that shows all the current running crafting task
 Each crafting task can be cancelled manually. It is also possible to cancel all crafting tasks at once.
 
 Per task, it shows a grid of cells, each containing information about how an item or fluid is used in the crafting task. This is what the terminology in those cells mean:
+
 - Stored: the item or fluid is stored in the internal inventory of the crafting task, and will be used later on
 - Missing: the crafting task cannot continue without this item or fluid as it's missing
 - Processing: the item or fluid displayed is currently inserted into an external machine and is processing

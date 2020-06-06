@@ -25,4 +25,4 @@ Adds Refined Storage autocrafting support for Avaritia.
 Adds Immersive Engineering style RS cables.
 
 ## Want to be listed here as well?
-Send a tweet to [@vdbergeraoul](https://twitter.com/vdbergeraoul).
+Send a tweet to [@refinedmods](https://twitter.com/refinedmods).

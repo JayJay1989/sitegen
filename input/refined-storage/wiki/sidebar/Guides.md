@@ -39,9 +39,8 @@
 **About the mod**
 
 - [[Spotlights]]
-- Addons
-  - [Refined Storage Addons](/wiki/refined-storage-addons)
 - [[FAQ]]
+- [[Addons]]
 - [[Minecraft version support]]
 - [[Playing on development builds]]
 - [[Resource packs|For resource pack creators]]

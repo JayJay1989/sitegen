@@ -30,6 +30,7 @@ If the [[Crafter]] is in "Redstone pulse inserts next set" mode, this is the flo
 - The [[Crafter]] will stay locked until it receives a redstone pulse
 
 When you apply a redstone pulse:
+
 - The [[Crafter]] will unlock itself
 - The [[Crafter]] pushes the next set of items and fluids, if any
 - If there were any items and fluids to push, the [[Crafter]] will lock itself again
@@ -42,6 +43,7 @@ Generally, you'd apply a redstone signal if the recipe you're processing has com
 
 ### Crafter deadlock
 If you use an [[Importer]] on a chest to import the final processed item, and also using a comparator to send the redstone signal to the [[Crafter]] to unlock again:
+
 - If the [[Importer]] imports too fast AND
 - the comparator doesn't pick up the item being in the chest AND
 - by not picking up the item, thus, not sending out a redstone signal

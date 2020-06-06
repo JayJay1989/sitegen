@@ -9,6 +9,7 @@ After doing all these steps, the Wireless Fluid Grid is still missing a signal f
 If the Wireless Fluid Grid is ready for use, it will light up blue.
 
 Sometimes, the Wireless Fluid Grid doesn't open or stays gray. To enable it make sure that:
+
 - The Wireless Fluid Grid is bound to a [[Controller]]
 - There is at least 1 [[Wireless Transmitter]] connected to the network
 - That you are in range of the [[Wireless Transmitter]]

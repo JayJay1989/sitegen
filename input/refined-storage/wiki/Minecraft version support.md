@@ -1,5 +1,5 @@
 |Minecraft version|Refined Storage version range|State|New features|Bugfixes|
-|----|----|
+|-----------------|-----------------------------|-----|------------|--------|
 |Minecraft 1.15|1.8|Available|Yes|Yes|
 |Minecraft 1.14|1.7 |Available|No|No|
 |Minecraft 1.13|-|Never available|-|-|

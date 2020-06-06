@@ -13,6 +13,7 @@ Prefix your search query with `@` followed by the mod ID or name to only show it
 You can also give search terms after that, so it'll only display certain items of that mod.
 
 For example:
+
 - `@ic2` will only show [IndustrialCraft 2](https://minecraft.curseforge.com/projects/industrial-craft) items and blocks
 - `@ic2 nuclear` will only show [IndustrialCraft 2](https://minecraft.curseforge.com/projects/industrial-craft) items and blocks that have "nuclear" in its name
 

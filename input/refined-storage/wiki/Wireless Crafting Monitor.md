@@ -9,6 +9,7 @@ After doing all these steps, the Wireless Crafting Monitor is still missing a si
 If the Wireless Crafting Monitor is ready for use, it will light up blue.
 
 Sometimes, the Wireless Crafting Monitor doesn't open or stays grey. To enable it make sure that:
+
 - The Wireless Crafting Monitor is bound to a [[Controller]]
 - There is at least 1 [[Wireless Transmitter]] connected to the network
 - That you are in range of the [[Wireless Transmitter]]

@@ -4,6 +4,7 @@ All the things you can do to manipulate items (with [[Exporter|exporters]] or [[
 
 ## Storage
 The same way as you connect item storages, you can connect fluid storages as well:
+
 - [[Fluid Storage Disk]] in a [[Disk Drive]]
 - [[Fluid Storage Block]]
 - [[External Storage]] in fluid mode

@@ -93,6 +93,8 @@ func build(site *site.Site) error {
 			renderer.AddWiki(site.Templates["wiki"], wiki, site, proj)
 		}
 
+		renderer.AddWikiIndex(site.Templates["wikiIndex"], site, proj)
+
 		err := renderer.AddUpdate(site, proj)
 		if err != nil {
 			log.WithError(err).Fatal("Could not render update")

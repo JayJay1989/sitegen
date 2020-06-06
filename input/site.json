@@ -86,7 +86,8 @@
     "releaseBadge": "release-badge.gohtml",
     "release": "release.gohtml",
     "releases": "releases.gohtml",
-    "wiki": "wiki.gohtml"
+    "wiki": "wiki.gohtml",
+    "wikiIndex": "wiki-index.gohtml"
   },
   "copyDirectories": [
     "dist",

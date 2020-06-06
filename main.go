@@ -7,6 +7,8 @@ import (
 	"github.com/refinedmods/sitegen/site"
 	log "github.com/sirupsen/logrus"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func init() {
@@ -67,7 +69,14 @@ func main() {
 			}
 		}()
 
-		err = watcher.Add("./")
+		err = filepath.Walk("./", func(path string, info os.FileInfo, err error) error {
+			if info.IsDir() && !strings.Contains(path, "node_modules") {
+				log.WithField("dir", path).Info("Watching directory")
+				return watcher.Add(path)
+			}
+			return nil
+		})
+
 		if err != nil {
 			log.WithError(err).Fatal("Could not add directory to watcher")
 		}
@@ -100,8 +109,6 @@ func build(site *site.Site) error {
 			log.WithError(err).Fatal("Could not render update")
 		}
 	}
-
-	log.Info("Rendering all files")
 
 	err := renderer.RenderAll()
 	if err != nil {

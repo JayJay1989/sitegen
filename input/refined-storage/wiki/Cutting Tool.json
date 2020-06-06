@@ -1,3 +1,9 @@
 {
-  "icon": "\/assets\/refined-storage\/renders\/cutting-tool.png"
+  "icon": "\/assets\/refined-storage\/renders\/cutting-tool.png",
+  "tags": [
+    {
+      "type": "since",
+      "release": "1.6"
+    }
+  ]
 }

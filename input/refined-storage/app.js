@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
 });
 
 function addHeadingLink(heading) {
-    const text = heading.innerHTML.toLowerCase().trim().replace(/[\.,-\/#!?$%\^&\*;:{}=\-_`~()]/g, "").replace(/ /g, '-');
+    const text = heading.innerHTML.toLowerCase().trim().replace(/[\.,\-\/#!?$%\^&\*;:{}=\-_\<\>`~()]/g, "").replace(/ /g, '-');
     heading.setAttribute('id', text);
 
     const link = '<a href="#' + text + '" class="wiki-heading-link ml-2"><i class="fa fa-link"></i></a>';

@@ -2,7 +2,7 @@
 You can change the text colors that Refined Storage uses in it's GUIs by changing the `pack.mcmeta` file.
 
 Example:
-```
+```json
 {
   "pack": {
     "pack_format": 4,

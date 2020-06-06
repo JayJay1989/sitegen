@@ -18,7 +18,7 @@ type Project struct {
 	WikiPath              string          `json:"wikiPath"`
 	WikiSidebars          []*wiki.Sidebar `json:"wikiSidebars"`
 	Wikis                 []*wiki.Wiki
-	WikisByName           map[string]*wiki.Wiki
+	WikisByName           wiki.WikisByName
 }
 
 func (p *Project) Load() error {
@@ -49,12 +49,13 @@ func (p *Project) Load() error {
 	}
 
 	if p.WikiPath != "" {
-		wikis, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
+		wikis, byName, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
 		if err != nil {
 			return err
 		}
 
 		p.Wikis = wikis
+		p.WikisByName = byName
 
 		for _, w := range p.Wikis {
 			for _, tag := range w.Meta.Tags {
@@ -62,8 +63,6 @@ func (p *Project) Load() error {
 					return errors.New("Version " + tag.Release + " not found on wiki " + w.Name)
 				}
 			}
-
-			p.WikisByName[w.Name] = w
 		}
 	}
 

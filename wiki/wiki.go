@@ -2,6 +2,8 @@ package wiki
 
 import "html/template"
 
+type WikisByName map[string]*Wiki
+
 type Wiki struct {
 	Name string
 	Slug string

@@ -10,7 +10,9 @@ import (
 	"strings"
 )
 
-func LoadWikis(path, projectSlug string, sidebars []*Sidebar) ([]*Wiki, error) {
+func LoadWikis(path, projectSlug string, sidebars []*Sidebar) ([]*Wiki, WikisByName, error) {
+	byName := make(WikisByName)
+
 	var result []*Wiki
 
 	fileList := make([]string, 0)
@@ -20,16 +22,14 @@ func LoadWikis(path, projectSlug string, sidebars []*Sidebar) ([]*Wiki, error) {
 	})
 
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-
-	index := make(wikiIndex)
 
 	for _, file := range fileList {
 		if strings.HasSuffix(file, ".md") {
 			data, err := ioutil.ReadFile(file)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 
 			page := new(Wiki)
@@ -41,46 +41,56 @@ func LoadWikis(path, projectSlug string, sidebars []*Sidebar) ([]*Wiki, error) {
 			if _, err := os.Stat(metaFile); err == nil {
 				data, err := ioutil.ReadFile(metaFile)
 				if err != nil {
-					return nil, err
+					return nil, nil, err
 				}
 
 				err = json.Unmarshal(data, &page.Meta)
 				if err != nil {
-					return nil, err
+					return nil, nil, err
 				}
 			}
 
 			result = append(result, page)
-			index[page.Name] = page
+
+			byName[page.Name] = page
 		}
 	}
 
 	for _, sidebar := range sidebars {
 		data, err := ioutil.ReadFile(sidebar.File)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 
 		sidebar.Body = parseBody(string(data))
 	}
 
 	for _, page := range result {
-		result, err := parseReferenceLinks(page.Body, page.Name, projectSlug, index)
+		result, err := parseReferenceLinks(page.Body, page.Name, projectSlug, referencesAndVariables, byName)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
+		}
+
+		page.Body = result
+	}
+
+	for _, page := range result {
+		result, err := parseReferenceLinks(page.Body, page.Name, projectSlug, includes, byName)
+		if err != nil {
+			return nil, nil, err
 		}
 
 		page.Body = result
 	}
 
 	for _, sidebar := range sidebars {
-		result, err := parseReferenceLinks(sidebar.Body, sidebar.Name, projectSlug, index)
+		result, err := parseReferenceLinks(sidebar.Body, sidebar.Name, projectSlug, referencesAndVariables, byName)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 
 		sidebar.BodyHtml = template.HTML(result)
 	}
 
-	return result, nil
+	return result, byName, nil
 }

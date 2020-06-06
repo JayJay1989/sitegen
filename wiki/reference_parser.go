@@ -3,12 +3,18 @@ package wiki
 import (
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"regexp"
 	"strings"
 )
 
-func parseReferenceLinks(body, name, projectSlug string, index wikiIndex) (string, error) {
+type stage int
+
+const (
+	referencesAndVariables stage = iota
+	includes
+)
+
+func parseReferenceLinks(body, name, projectSlug string, stage stage, byName WikisByName) (string, error) {
 	r, err := regexp.Compile("\\[\\[(.+?)(\\|(.+?))?]]")
 	if err != nil {
 		return "", err
@@ -22,31 +28,50 @@ func parseReferenceLinks(body, name, projectSlug string, index wikiIndex) (strin
 		reference := r.ReplaceAllString(string(bytes), `$1`)
 
 		if strings.HasPrefix(reference, "#") {
-			log.WithField("value", reference).WithField("wiki", name).Warn("Variables are unsupported")
+			if stage == referencesAndVariables {
+				if reference == "#name" {
+					return []byte(name)
+				}
+
+				err = errors.New("Unknown variable " + reference[1:] + " in wiki " + name)
+			}
+
 			return bytes
-		}
-		if strings.HasPrefix(reference, "@") {
-			log.WithField("value", reference).WithField("wiki", name).Warn("Includes are unsupported")
+		} else if strings.HasPrefix(reference, "@") {
+			if stage == includes {
+				referencedWiki := byName[reference[1:]]
+				if referencedWiki == nil {
+					err = errors.New(fmt.Sprintf("could not find include to %s in wiki %s", reference[1:], name))
+
+					return bytes
+				}
+
+				return []byte(referencedWiki.Body)
+			}
+
 			return bytes
-		}
+		} else if stage == referencesAndVariables {
+			referencedWiki := byName[reference]
+			if referencedWiki == nil {
+				err = errors.New(fmt.Sprintf("could not find reference to %s in wiki %s", reference, name))
 
-		referencedWiki := index[reference]
-		if referencedWiki == nil {
-			err = errors.New(fmt.Sprintf("could not find reference to %s in wiki %s", reference, name))
-			return bytes
-		}
+				return bytes
+			}
 
-		format := r.ReplaceAllString(string(bytes), `$3`)
+			format := r.ReplaceAllString(string(bytes), `$3`)
 
-		tooltipData := ""
-		if referencedWiki.Meta.Icon != "" {
-			tooltipData = fmt.Sprintf(`data-tooltip-icon="%s"`, referencedWiki.Meta.Icon)
-		}
+			tooltipData := ""
+			if referencedWiki.Meta.Icon != "" {
+				tooltipData = fmt.Sprintf(`data-tooltip-icon="%s"`, referencedWiki.Meta.Icon)
+			}
 
-		if format == "" {
-			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, referencedWiki.Name))
+			if format == "" {
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, referencedWiki.Name))
+			} else {
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, format))
+			}
 		} else {
-			return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, format))
+			return bytes
 		}
 	}))
 

@@ -9,7 +9,7 @@ module.exports = {
         path: __dirname + '/dist'
     },
     devtool: 'source-map',
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {test: /\.scss/, use: [{loader: MiniCssExtractPlugin.loader}, "css-loader", "sass-loader"]},

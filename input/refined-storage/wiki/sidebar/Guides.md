@@ -12,7 +12,7 @@
 
 - [[Getting started with autocrafting]]
 - [[Processing recipes]]
-  - [Chaining crafters](https://refinedstorage.raoulvdberge.com/wiki/crafter#chaining)
+  - [[Crafter|Chaining crafters#chaining]]
 - [[Keeping items in stock]]
 - [[Locking and unlocking]]
   - [Locking and unlocking (demo video)](https://www.youtube.com/watch?v=c9s-IfDPKxw)

@@ -15,7 +15,7 @@ const (
 )
 
 func parseReferenceLinks(body, name, projectSlug string, stage stage, byName WikisByName) (string, error) {
-	r, err := regexp.Compile("\\[\\[(.+?)(\\|(.+?))?]]")
+	r, err := regexp.Compile("\\[\\[(.+?)(\\|(.+?))?(#(.+?))?]]")
 	if err != nil {
 		return "", err
 	}
@@ -59,6 +59,12 @@ func parseReferenceLinks(body, name, projectSlug string, stage stage, byName Wik
 			}
 
 			format := r.ReplaceAllString(string(bytes), `$3`)
+			heading := r.ReplaceAllString(string(bytes), `$4`)
+			headingData := ""
+
+			if heading != "" {
+				headingData = "#" + heading[1:]
+			}
 
 			tooltipData := ""
 			if referencedWiki.Meta.Icon != "" {
@@ -66,9 +72,9 @@ func parseReferenceLinks(body, name, projectSlug string, stage stage, byName Wik
 			}
 
 			if format == "" {
-				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, referencedWiki.Name))
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectSlug, referencedWiki.Slug, headingData, tooltipData, referencedWiki.Name))
 			} else {
-				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html" %s>%s</a>`, projectSlug, referencedWiki.Slug, tooltipData, format))
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectSlug, referencedWiki.Slug, headingData, tooltipData, format))
 			}
 		} else {
 			return bytes

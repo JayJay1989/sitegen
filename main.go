@@ -15,7 +15,7 @@ func init() {
 	log.SetOutput(os.Stdout)
 }
 
-var output = flag.String("output", "./output/", "the output directory")
+var output = flag.String("output", "output/", "the output directory")
 var config = flag.String("config", "site.json", "the configuration file")
 
 func main() {

@@ -114,7 +114,7 @@ func (r *Renderer) RenderAll() error {
 		if err != nil {
 			return err
 		}
-		file, err := os.OpenFile(r.outputLocation+filename, os.O_TRUNC|os.O_CREATE, 0666)
+		file, err := os.OpenFile(r.outputLocation+filename, os.O_TRUNC|os.O_CREATE|os.O_RDWR, 0666)
 		if err != nil {
 			return err
 		}

@@ -70,7 +70,7 @@ func main() {
 		}()
 
 		err = filepath.Walk("./", func(path string, info os.FileInfo, err error) error {
-			if info.IsDir() && !strings.Contains(path, "node_modules") {
+			if info.IsDir() && !strings.Contains(path, "node_modules") && !strings.Contains(path, ".git") && !strings.Contains(path, "output") {
 				log.WithField("dir", path).Info("Watching directory")
 				return watcher.Add(path)
 			}

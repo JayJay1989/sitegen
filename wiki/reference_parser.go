@@ -12,10 +12,11 @@ type stage int
 const (
 	referencesAndVariables stage = iota
 	includes
+	crossProjectReferences stage = iota
 )
 
-func parseReferenceLinks(body, name, projectSlug string, stage stage, byName WikisByName) (string, error) {
-	r, err := regexp.Compile("\\[\\[(.+?)(\\|(.+?))?(#(.+?))?]]")
+func parseReferenceLinks(body, name, projectName string, stage stage, projectNameToWikiIndex map[string]WikisByName, projectNameToProjectSlug map[string]string) (string, error) {
+	r, err := regexp.Compile("\\[\\[(.+?)(\\|(.+?))?(#(.+?))?(!(.+?))?]]")
 	if err != nil {
 		return "", err
 	}
@@ -33,15 +34,15 @@ func parseReferenceLinks(body, name, projectSlug string, stage stage, byName Wik
 					return []byte(name)
 				}
 
-				err = errors.New("Unknown variable " + reference[1:] + " in wiki " + name)
+				err = errors.New("Unknown variable '" + reference[1:] + "' in wiki '" + name + "'")
 			}
 
 			return bytes
 		} else if strings.HasPrefix(reference, "@") {
 			if stage == includes {
-				referencedWiki := byName[reference[1:]]
+				referencedWiki := projectNameToWikiIndex[projectName][reference[1:]]
 				if referencedWiki == nil {
-					err = errors.New(fmt.Sprintf("could not find include to %s in wiki %s", reference[1:], name))
+					err = errors.New(fmt.Sprintf("Could not find include to '%s' in wiki '%s'", reference[1:], name))
 
 					return bytes
 				}
@@ -50,18 +51,28 @@ func parseReferenceLinks(body, name, projectSlug string, stage stage, byName Wik
 			}
 
 			return bytes
-		} else if stage == referencesAndVariables {
-			referencedWiki := byName[reference]
+		} else if stage == referencesAndVariables || stage == crossProjectReferences {
+			referencedProject := projectName
+			referencedProjectInWiki := r.ReplaceAllString(string(bytes), `$6`)
+			if referencedProjectInWiki != "" {
+				referencedProject = referencedProjectInWiki[1:]
+
+				if stage != crossProjectReferences {
+					return bytes
+				}
+			}
+
+			referencedWiki := projectNameToWikiIndex[referencedProject][reference]
 			if referencedWiki == nil {
-				err = errors.New(fmt.Sprintf("could not find reference to %s in wiki %s", reference, name))
+				err = errors.New(fmt.Sprintf("Could not find reference to '%s' in wiki '%s'", reference, name))
 
 				return bytes
 			}
 
 			format := r.ReplaceAllString(string(bytes), `$3`)
 			heading := r.ReplaceAllString(string(bytes), `$4`)
-			headingData := ""
 
+			headingData := ""
 			if heading != "" {
 				headingData = "#" + heading[1:]
 			}
@@ -72,9 +83,9 @@ func parseReferenceLinks(body, name, projectSlug string, stage stage, byName Wik
 			}
 
 			if format == "" {
-				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectSlug, referencedWiki.Slug, headingData, tooltipData, referencedWiki.Name))
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectNameToProjectSlug[referencedProject], referencedWiki.Slug, headingData, tooltipData, referencedWiki.Name))
 			} else {
-				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectSlug, referencedWiki.Slug, headingData, tooltipData, format))
+				return []byte(fmt.Sprintf(`<a href="/%s/wiki/%s.html%s" %s>%s</a>`, projectNameToProjectSlug[referencedProject], referencedWiki.Slug, headingData, tooltipData, format))
 			}
 		} else {
 			return bytes

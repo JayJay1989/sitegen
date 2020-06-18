@@ -21,11 +21,12 @@ type Project struct {
 	WikisByName           wiki.WikisByName
 }
 
-func (p *Project) Load() error {
-	p.WikisByName = make(map[string]*wiki.Wiki)
+func (p *Project) Init() {
 	p.ReleasesByVersion = make(map[string]*release.Release)
 	p.Slug = slug.Make(p.Name)
+}
 
+func (p *Project) Load(projectNameToProjectSlug map[string]string, projectNameToWikiIndex map[string]wiki.WikisByName) error {
 	for _, group := range p.ReleaseGroups {
 		err := group.Load()
 		if err != nil {
@@ -49,13 +50,13 @@ func (p *Project) Load() error {
 	}
 
 	if p.WikiPath != "" {
-		wikis, byName, err := wiki.LoadWikis(p.WikiPath, p.Slug, p.WikiSidebars)
+		wikis, err := wiki.Load(p.WikiPath, p.Name, p.WikiSidebars, projectNameToWikiIndex, projectNameToProjectSlug)
 		if err != nil {
 			return err
 		}
 
 		p.Wikis = wikis
-		p.WikisByName = byName
+		p.WikisByName = projectNameToWikiIndex[p.Name]
 
 		for _, w := range p.Wikis {
 			for _, tag := range w.Meta.Tags {
@@ -63,6 +64,17 @@ func (p *Project) Load() error {
 					return errors.New("Version " + tag.Release + " not found on wiki " + w.Name)
 				}
 			}
+		}
+	}
+
+	return nil
+}
+
+func (p *Project) PostLoad(projectNameToProjectSlug map[string]string, projectNameToWikiIndex map[string]wiki.WikisByName) error {
+	for _, w := range p.Wikis {
+		err := w.PostLoad(p.Name, projectNameToProjectSlug, projectNameToWikiIndex)
+		if err != nil {
+			return err
 		}
 	}
 

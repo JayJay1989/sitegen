@@ -3,6 +3,7 @@ package site
 import (
 	"encoding/json"
 	"github.com/refinedmods/sitegen/project"
+	"github.com/refinedmods/sitegen/wiki"
 	"io/ioutil"
 )
 
@@ -36,8 +37,23 @@ func NewSite(filename string) (*Site, error) {
 }
 
 func (c *Site) load() error {
+	projectNameToProjectSlug := make(map[string]string)
+	projectNameToWikiIndex := make(map[string]wiki.WikisByName)
+
 	for _, proj := range c.Projects {
-		err := proj.Load()
+		proj.Init()
+
+		projectNameToProjectSlug[proj.Name] = proj.Slug
+		projectNameToWikiIndex[proj.Name] = make(wiki.WikisByName)
+
+		err := proj.Load(projectNameToProjectSlug, projectNameToWikiIndex)
+		if err != nil {
+			return err
+		}
+	}
+
+	for _, proj := range c.Projects {
+		err := proj.PostLoad(projectNameToProjectSlug, projectNameToWikiIndex)
 		if err != nil {
 			return err
 		}
